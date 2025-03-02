@@ -227,6 +227,7 @@ nav a.active {
 /* 产品区域 */
 .products {
     background-color: var(--light-gray);
+    padding-bottom: 100px;
 }
 
 .product-filter {
@@ -258,6 +259,8 @@ nav a.active {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .product-card {
@@ -274,9 +277,29 @@ nav a.active {
 }
 
 .product-image {
+    cursor: pointer;
     position: relative;
     height: 250px;
     overflow: hidden;
+}
+
+.product-image::after {
+    content: '点击查看大图';
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.product-image:hover::after {
+    opacity: 1;
 }
 
 .product-image img {
@@ -326,12 +349,14 @@ nav a.active {
     margin-top: 15px;
     padding-top: 15px;
     border-top: 1px solid var(--border-color);
+    flex-wrap: wrap;
 }
 
 .product-price {
     color: var(--primary-color);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 700;
+    margin-right: 10px;
 }
 
 .product-weight {
@@ -531,6 +556,10 @@ footer {
         max-width: 400px;
         margin: 0 auto;
     }
+    
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 768px) {
@@ -549,10 +578,6 @@ footer {
     nav ul {
         margin-top: 15px;
         gap: 15px;
-    }
-    
-    .product-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     }
     
     .section-header h2 {
@@ -582,4 +607,69 @@ footer {
     .footer-contact p {
         justify-content: center;
     }
-} 
+}
+
+/* 图片预览模态框 */
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    position: relative;
+    margin: 5% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 800px;
+    animation: scaleIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes scaleIn {
+    from {transform: scale(0.9);}
+    to {transform: scale(1);}
+}
+
+#modalImage {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.close-modal {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    color: white;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    z-index: 2001;
+    transition: all 0.3s ease;
+}
+
+.close-modal:hover {
+    background-color: var(--dark-accent);
+    transform: rotate(90deg);
+}
