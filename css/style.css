@@ -1,14 +1,14 @@
 /* 全局样式 */
 :root {
     --primary-color: #e63946;
-    --secondary-color: #f1faee;
-    --text-color: #1d3557;
-    --background-color: #fff;
-    --accent-color: #a8dadc;
-    --dark-accent: #457b9d;
-    --light-gray: #f8f9fa;
-    --border-color: #e9ecef;
-    --shadow-color: rgba(0, 0, 0, 0.1);
+    --secondary-color: #fff3e0;
+    --text-color: #5d4037;
+    --background-color: #fffaf0;
+    --accent-color: #ffcc80;
+    --dark-accent: #ff9800;
+    --light-gray: #fff8e1;
+    --border-color: #ffe0b2;
+    --shadow-color: rgba(210, 105, 30, 0.1);
 }
 
 * {
@@ -188,7 +188,7 @@ nav a.active {
 /* 英雄区 */
 .hero {
     height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/hero-bg.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../images/hero-bg.jpg');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -452,7 +452,7 @@ nav a.active {
 
 /* 页脚 */
 footer {
-    background-color: #222;
+    background-color: #5d4037;
     color: white;
     padding: 60px 0 30px;
 }
