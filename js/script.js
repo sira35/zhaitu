@@ -12,6 +12,98 @@ function showModal(element) {
     }
 }
 
+// 购物车数据
+let cart = {
+    items: {},
+    total: 0
+};
+
+// 计算购物车总价
+function calculateTotal() {
+    let total = 0;
+    let itemCount = 0;
+    
+    // 计算商品总数
+    for (let id in cart.items) {
+        itemCount += cart.items[id].quantity;
+    }
+    
+    // 计算总价
+    let pairs = Math.floor(itemCount / 2); // 计算可以组成多少对
+    let singles = itemCount % 2; // 计算剩余单个数量
+    
+    total = pairs * 25 + singles * 13; // 每对25元，单个13元
+    
+    return total;
+}
+
+// 更新购物车显示
+function updateCartDisplay() {
+    const cartCount = document.querySelector('.cart-count');
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    let totalQuantity = 0;
+    
+    // 清空购物车显示
+    cartItems.innerHTML = '';
+    
+    // 添加每个商品
+    for (let id in cart.items) {
+        const item = cart.items[id];
+        totalQuantity += item.quantity;
+        
+        if (item.quantity > 0) {
+            cartItems.innerHTML += `
+                <div class="cart-item">
+                    <div class="cart-item-image">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="cart-item-info">
+                        <div class="cart-item-title">${item.name}</div>
+                        <div class="cart-item-price">¥${item.price} × ${item.quantity}</div>
+                    </div>
+                    <div class="quantity-control">
+                        <button class="quantity-btn minus" onclick="updateQuantity(${id}, -1)">-</button>
+                        <span class="quantity">${item.quantity}</span>
+                        <button class="quantity-btn plus" onclick="updateQuantity(${id}, 1)">+</button>
+                    </div>
+                </div>
+            `;
+        }
+    }
+    
+    // 更新总数和总价
+    cartCount.textContent = totalQuantity;
+    cartTotal.textContent = `¥${calculateTotal()}`;
+}
+
+// 更新商品数量
+function updateQuantity(productId, change) {
+    // 获取商品信息
+    const productCard = document.querySelector(`[data-product-id="${productId}"]`);
+    const productName = productCard.querySelector('h3').textContent;
+    const productImage = productCard.querySelector('img').src;
+    const quantityDisplay = document.getElementById(`quantity-${productId}`);
+    
+    // 初始化商品在购物车中的数据
+    if (!cart.items[productId]) {
+        cart.items[productId] = {
+            name: productName,
+            price: 13,
+            quantity: 0,
+            image: productImage
+        };
+    }
+    
+    // 更新数量
+    const newQuantity = cart.items[productId].quantity + change;
+    if (newQuantity >= 0) {
+        cart.items[productId].quantity = newQuantity;
+        quantityDisplay.textContent = newQuantity;
+        updateCartDisplay();
+    }
+}
+
 // DOM 加载完成后执行
 document.addEventListener('DOMContentLoaded', function() {
     // 导航栏滚动效果
@@ -165,5 +257,90 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.style.display = 'none';
             document.body.style.overflow = 'auto'; // 恢复背景滚动
         }
+    });
+
+    // 登录注册功能
+    const loginBtn = document.getElementById('loginBtn');
+    const registerBtn = document.getElementById('registerBtn');
+    const cartBtn = document.getElementById('cartBtn');
+    const loginModal = document.getElementById('loginModal');
+    const registerModal = document.getElementById('registerModal');
+    const cartModal = document.getElementById('cartModal');
+    const closeButtons = document.querySelectorAll('.close-auth, .close-cart');
+    
+    // 打开登录模态框
+    loginBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        loginModal.style.display = 'block';
+    });
+    
+    // 打开注册模态框
+    registerBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        registerModal.style.display = 'block';
+    });
+    
+    // 打开购物车模态框
+    cartBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        cartModal.style.display = 'block';
+    });
+    
+    // 关闭模态框
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            loginModal.style.display = 'none';
+            registerModal.style.display = 'none';
+            cartModal.style.display = 'none';
+        });
+    });
+    
+    // 点击模态框外部关闭
+    window.addEventListener('click', function(e) {
+        if (e.target === loginModal) loginModal.style.display = 'none';
+        if (e.target === registerModal) registerModal.style.display = 'none';
+        if (e.target === cartModal) cartModal.style.display = 'none';
+    });
+    
+    // 处理登录表单提交
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const username = document.getElementById('loginUsername').value;
+        const password = document.getElementById('loginPassword').value;
+        
+        // 这里添加登录逻辑
+        console.log('登录:', username, password);
+        alert('登录成功！');
+        loginModal.style.display = 'none';
+    });
+    
+    // 处理注册表单提交
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const username = document.getElementById('registerUsername').value;
+        const password = document.getElementById('registerPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        
+        if (password !== confirmPassword) {
+            alert('两次输入的密码不一致！');
+            return;
+        }
+        
+        // 这里添加注册逻辑
+        console.log('注册:', username, password);
+        alert('注册成功！');
+        registerModal.style.display = 'none';
+    });
+    
+    // 处理结算按钮点击
+    document.getElementById('checkoutBtn').addEventListener('click', function() {
+        if (Object.keys(cart.items).length === 0) {
+            alert('购物车是空的！');
+            return;
+        }
+        
+        // 这里添加结算逻辑
+        const total = calculateTotal();
+        alert(`总计: ¥${total}\n即将跳转到支付页面...`);
     });
 });

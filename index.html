@@ -20,10 +20,77 @@
                     <li><a href="#products">产品</a></li>
                     <li><a href="#about">关于我们</a></li>
                     <li><a href="#contact">联系方式</a></li>
+                    <li><a href="#" id="loginBtn">登录</a></li>
+                    <li><a href="#" id="registerBtn">注册</a></li>
+                    <li>
+                        <a href="#" id="cartBtn" class="cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">0</span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>
     </header>
+
+    <!-- 登录模态框 -->
+    <div id="loginModal" class="auth-modal">
+        <div class="auth-content">
+            <span class="close-auth">&times;</span>
+            <h2>用户登录</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginUsername">用户名</label>
+                    <input type="text" id="loginUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">密码</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="auth-btn">登录</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 注册模态框 -->
+    <div id="registerModal" class="auth-modal">
+        <div class="auth-content">
+            <span class="close-auth">&times;</span>
+            <h2>用户注册</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerUsername">用户名</label>
+                    <input type="text" id="registerUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">密码</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">确认密码</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                <button type="submit" class="auth-btn">注册</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 购物车模态框 -->
+    <div id="cartModal" class="cart-modal">
+        <div class="cart-content">
+            <span class="close-cart">&times;</span>
+            <h2>购物车</h2>
+            <div id="cartItems" class="cart-items">
+                <!-- 购物车商品将在这里动态显示 -->
+            </div>
+            <div class="cart-summary">
+                <div class="cart-total">
+                    总计: <span id="cartTotal">¥0</span>
+                </div>
+                <button id="checkoutBtn" class="checkout-btn">结算</button>
+            </div>
+        </div>
+    </div>
 
     <section id="home" class="hero">
         <div class="container">
@@ -52,7 +119,7 @@
 
             <div class="product-grid">
                 <!-- 产品1 - 牛肉酱 -->
-                <div class="product-card" data-category="medium">
+                <div class="product-card" data-category="medium" data-product-id="1">
                     <div class="product-image" onclick="showModal(this)">
                         <img src="images/product1.jpg" alt="牛肉酱">
                         <div class="product-tag">中辣</div>
@@ -61,14 +128,19 @@
                         <h3>牛肉酱</h3>
                         <p class="product-description">精选优质牛肉，传统工艺，香辣可口</p>
                         <div class="product-meta">
-                            <span class="product-price">一盒¥13 两盒¥25</span>
+                            <span class="product-price">¥13</span>
                             <span class="product-weight">400g</span>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus" onclick="updateQuantity(1, -1)">-</button>
+                                <span class="quantity" id="quantity-1">0</span>
+                                <button class="quantity-btn plus" onclick="updateQuantity(1, 1)">+</button>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- 产品2 - 香菇酱 -->
-                <div class="product-card" data-category="mild">
+                <div class="product-card" data-category="mild" data-product-id="2">
                     <div class="product-image" onclick="showModal(this)">
                         <img src="images/product2.jpg" alt="香菇酱">
                         <div class="product-tag">微辣</div>
@@ -77,14 +149,19 @@
                         <h3>香菇酱</h3>
                         <p class="product-description">选用上等香菇，口感鲜美，风味独特</p>
                         <div class="product-meta">
-                            <span class="product-price">一盒¥13 两盒¥25</span>
+                            <span class="product-price">¥13</span>
                             <span class="product-weight">400g</span>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus" onclick="updateQuantity(2, -1)">-</button>
+                                <span class="quantity" id="quantity-2">0</span>
+                                <button class="quantity-btn plus" onclick="updateQuantity(2, 1)">+</button>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- 产品3 - 香辣瓜子仁 -->
-                <div class="product-card" data-category="medium">
+                <div class="product-card" data-category="medium" data-product-id="3">
                     <div class="product-image" onclick="showModal(this)">
                         <img src="images/product3.jpg" alt="香辣瓜子仁">
                         <div class="product-tag">中辣</div>
@@ -93,14 +170,19 @@
                         <h3>香辣瓜子仁</h3>
                         <p class="product-description">精选瓜子仁，香辣爽口，下酒佐餐必备</p>
                         <div class="product-meta">
-                            <span class="product-price">一盒¥13 两盒¥25</span>
+                            <span class="product-price">¥13</span>
                             <span class="product-weight">400g</span>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus" onclick="updateQuantity(3, -1)">-</button>
+                                <span class="quantity" id="quantity-3">0</span>
+                                <button class="quantity-btn plus" onclick="updateQuantity(3, 1)">+</button>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- 产品4 - 香辣脆 -->
-                <div class="product-card" data-category="hot">
+                <div class="product-card" data-category="hot" data-product-id="4">
                     <div class="product-image" onclick="showModal(this)">
                         <img src="images/product4.jpg" alt="香辣脆">
                         <div class="product-tag">特辣</div>
@@ -109,14 +191,19 @@
                         <h3>香辣脆</h3>
                         <p class="product-description">脆香爽口，辣味十足，开胃下饭</p>
                         <div class="product-meta">
-                            <span class="product-price">一盒¥13 两盒¥25</span>
+                            <span class="product-price">¥13</span>
                             <span class="product-weight">400g</span>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus" onclick="updateQuantity(4, -1)">-</button>
+                                <span class="quantity" id="quantity-4">0</span>
+                                <button class="quantity-btn plus" onclick="updateQuantity(4, 1)">+</button>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- 产品5 - 辣子鸡 -->
-                <div class="product-card" data-category="medium">
+                <div class="product-card" data-category="medium" data-product-id="5">
                     <div class="product-image" onclick="showModal(this)">
                         <img src="images/product5.jpg" alt="辣子鸡">
                         <div class="product-tag">中辣</div>
@@ -125,14 +212,19 @@
                         <h3>辣子鸡</h3>
                         <p class="product-description">传统风味辣子鸡，香辣可口，回味无穷</p>
                         <div class="product-meta">
-                            <span class="product-price">一盒¥13 两盒¥25</span>
+                            <span class="product-price">¥13</span>
                             <span class="product-weight">400g</span>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus" onclick="updateQuantity(5, -1)">-</button>
+                                <span class="quantity" id="quantity-5">0</span>
+                                <button class="quantity-btn plus" onclick="updateQuantity(5, 1)">+</button>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- 产品6 - 夹馍酱 -->
-                <div class="product-card" data-category="mild">
+                <div class="product-card" data-category="mild" data-product-id="6">
                     <div class="product-image" onclick="showModal(this)">
                         <img src="images/product6.jpg" alt="夹馍酱">
                         <div class="product-tag">微辣</div>
@@ -141,14 +233,19 @@
                         <h3>夹馍酱</h3>
                         <p class="product-description">特制夹馍专用酱料，香味浓郁，美味十足</p>
                         <div class="product-meta">
-                            <span class="product-price">一盒¥13 两盒¥25</span>
+                            <span class="product-price">¥13</span>
                             <span class="product-weight">400g</span>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus" onclick="updateQuantity(6, -1)">-</button>
+                                <span class="quantity" id="quantity-6">0</span>
+                                <button class="quantity-btn plus" onclick="updateQuantity(6, 1)">+</button>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
                 <!-- 产品7 - 香五仁 -->
-                <div class="product-card" data-category="mild">
+                <div class="product-card" data-category="mild" data-product-id="7">
                     <div class="product-image" onclick="showModal(this)">
                         <img src="images/product7.jpg" alt="香五仁">
                         <div class="product-tag">微辣</div>
@@ -157,14 +254,19 @@
                         <h3>香五仁</h3>
                         <p class="product-description">五种坚果精制而成，香气四溢，口感丰富</p>
                         <div class="product-meta">
-                            <span class="product-price">一盒¥13 两盒¥25</span>
+                            <span class="product-price">¥13</span>
                             <span class="product-weight">400g</span>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus" onclick="updateQuantity(7, -1)">-</button>
+                                <span class="quantity" id="quantity-7">0</span>
+                                <button class="quantity-btn plus" onclick="updateQuantity(7, 1)">+</button>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
                 <!-- 产品8 - 酱料 -->
-                <div class="product-card" data-category="medium">
+                <div class="product-card" data-category="medium" data-product-id="8">
                     <div class="product-image" onclick="showModal(this)">
                         <img src="images/product8.jpg" alt="酱料">
                         <div class="product-tag">定制</div>
@@ -232,7 +334,7 @@
                         <i class="fas fa-phone"></i>
                         <div>
                             <h3>电话咨询</h3>
-                            <p>03102825380</p>
+                            <p>15130395952</p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -246,7 +348,7 @@
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
                             <h3>公司地址</h3>
-                            <p>河北省邯郸市馆陶县陶山市场南路</p>
+                            <p>河北省邯郸馆陶县</p>
                         </div>
                     </div>
                 </div>
@@ -279,9 +381,9 @@
                 </div>
                 <div class="footer-contact">
                     <h3>联系我们</h3>
-                    <p><i class="fas fa-phone"></i> 03102825380</p>
+                    <p><i class="fas fa-phone"></i> 15130395952</p>
                     <p><i class="fas fa-envelope"></i> 527494471@qq.com</p>
-                    <p><i class="fas fa-map-marker-alt"></i> 河北省邯郸市馆陶县陶山市场南路</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 河北省邯郸馆陶县</p>
                 </div>
             </div>
             <div class="footer-bottom">
