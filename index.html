@@ -20,8 +20,6 @@
                     <li><a href="#products">产品</a></li>
                     <li><a href="#about">关于我们</a></li>
                     <li><a href="#contact">联系方式</a></li>
-                    <li><a href="#" id="loginBtn">登录</a></li>
-                    <li><a href="#" id="registerBtn">注册</a></li>
                     <li>
                         <a href="#" id="cartBtn" class="cart-icon">
                             <i class="fas fa-shopping-cart"></i>
@@ -34,52 +32,16 @@
     </header>
 
     <!-- 登录模态框 -->
-    <div id="loginModal" class="auth-modal">
-        <div class="auth-content">
-            <span class="close-auth">&times;</span>
-            <h2>用户登录</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="loginUsername">用户名</label>
-                    <input type="text" id="loginUsername" required>
-                </div>
-                <div class="form-group">
-                    <label for="loginPassword">密码</label>
-                    <input type="password" id="loginPassword" required>
-                </div>
-                <button type="submit" class="auth-btn">登录</button>
-            </form>
-        </div>
-    </div>
-
+    <!-- <div id="loginModal" class="auth-modal"> ... </div> -->
     <!-- 注册模态框 -->
-    <div id="registerModal" class="auth-modal">
-        <div class="auth-content">
-            <span class="close-auth">&times;</span>
-            <h2>用户注册</h2>
-            <form id="registerForm">
-                <div class="form-group">
-                    <label for="registerUsername">用户名</label>
-                    <input type="text" id="registerUsername" required>
-                </div>
-                <div class="form-group">
-                    <label for="registerPassword">密码</label>
-                    <input type="password" id="registerPassword" required>
-                </div>
-                <div class="form-group">
-                    <label for="confirmPassword">确认密码</label>
-                    <input type="password" id="confirmPassword" required>
-                </div>
-                <button type="submit" class="auth-btn">注册</button>
-            </form>
-        </div>
-    </div>
+    <!-- <div id="registerModal" class="auth-modal"> ... </div> -->
 
     <!-- 购物车模态框 -->
     <div id="cartModal" class="cart-modal">
         <div class="cart-content">
             <span class="close-cart">&times;</span>
             <h2>购物车</h2>
+            <div class="cart-activity-tip">活动：1瓶13元，2瓶25元</div>
             <div id="cartItems" class="cart-items">
                 <!-- 购物车商品将在这里动态显示 -->
             </div>
@@ -121,7 +83,7 @@
                 <!-- 产品1 - 牛肉酱 -->
                 <div class="product-card" data-category="medium" data-product-id="1">
                     <div class="product-image" onclick="showModal(this)">
-                        <img src="images/product1.jpg" alt="牛肉酱">
+                        <img src="images/product1.jpg" alt="牛肉酱" width="800" height="600">
                         <div class="product-tag">中辣</div>
                     </div>
                     <div class="product-info">
@@ -142,7 +104,7 @@
                 <!-- 产品2 - 香菇酱 -->
                 <div class="product-card" data-category="mild" data-product-id="2">
                     <div class="product-image" onclick="showModal(this)">
-                        <img src="images/product2.jpg" alt="香菇酱">
+                        <img src="images/product2.jpg" alt="香菇酱" width="800" height="600">
                         <div class="product-tag">微辣</div>
                     </div>
                     <div class="product-info">
@@ -163,7 +125,7 @@
                 <!-- 产品3 - 香辣瓜子仁 -->
                 <div class="product-card" data-category="medium" data-product-id="3">
                     <div class="product-image" onclick="showModal(this)">
-                        <img src="images/product3.jpg" alt="香辣瓜子仁">
+                        <img src="images/product3.jpg" alt="香辣瓜子仁" width="800" height="600">
                         <div class="product-tag">中辣</div>
                     </div>
                     <div class="product-info">
@@ -184,7 +146,7 @@
                 <!-- 产品4 - 香辣脆 -->
                 <div class="product-card" data-category="hot" data-product-id="4">
                     <div class="product-image" onclick="showModal(this)">
-                        <img src="images/product4.jpg" alt="香辣脆">
+                        <img src="images/product4.jpg" alt="香辣脆" width="800" height="600">
                         <div class="product-tag">特辣</div>
                     </div>
                     <div class="product-info">
@@ -205,7 +167,7 @@
                 <!-- 产品5 - 辣子鸡 -->
                 <div class="product-card" data-category="medium" data-product-id="5">
                     <div class="product-image" onclick="showModal(this)">
-                        <img src="images/product5.jpg" alt="辣子鸡">
+                        <img src="images/product5.jpg" alt="辣子鸡" width="800" height="600">
                         <div class="product-tag">中辣</div>
                     </div>
                     <div class="product-info">
@@ -226,7 +188,7 @@
                 <!-- 产品6 - 夹馍酱 -->
                 <div class="product-card" data-category="mild" data-product-id="6">
                     <div class="product-image" onclick="showModal(this)">
-                        <img src="images/product6.jpg" alt="夹馍酱">
+                        <img src="images/product6.jpg" alt="夹馍酱" width="800" height="600">
                         <div class="product-tag">微辣</div>
                     </div>
                     <div class="product-info">
@@ -247,7 +209,7 @@
                 <!-- 产品7 - 香五仁 -->
                 <div class="product-card" data-category="mild" data-product-id="7">
                     <div class="product-image" onclick="showModal(this)">
-                        <img src="images/product7.jpg" alt="香五仁">
+                        <img src="images/product7.jpg" alt="香五仁" width="800" height="600">
                         <div class="product-tag">微辣</div>
                     </div>
                     <div class="product-info">
@@ -268,7 +230,7 @@
                 <!-- 产品8 - 酱料 -->
                 <div class="product-card" data-category="medium" data-product-id="8">
                     <div class="product-image" onclick="showModal(this)">
-                        <img src="images/product8.jpg" alt="酱料">
+                        <img src="images/product8.jpg" alt="酱料" width="800" height="600">
                         <div class="product-tag">定制</div>
                     </div>
                     <div class="product-info">
@@ -355,7 +317,7 @@
                 <div class="wechat-qrcode">
                     <h3>微信联系</h3>
                     <div class="qrcode-wrapper">
-                        <img src="images/qrcode.jpg" alt="微信二维码">
+                        <img src="images/qrcode.jpg" alt="微信二维码" width="400" height="400">
                         <p>扫码添加微信</p>
                     </div>
                 </div>
@@ -402,4 +364,4 @@
 
     <script src="js/script.js"></script>
 </body>
-</html> 
+</html>

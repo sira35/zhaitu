@@ -914,3 +914,15 @@ footer {
         width: 95%;
     }
 }
+.cart-activity-tip {
+    font-size: 0.92rem;
+    color: #b26a00;
+    background: #fff8e1;
+    border-radius: 6px;
+    padding: 6px 12px;
+    margin-bottom: 12px;
+    text-align: center;
+    letter-spacing: 1px;
+    box-shadow: 0 1px 4px rgba(255, 152, 0, 0.08);
+    font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}

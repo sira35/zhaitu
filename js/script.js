@@ -79,28 +79,51 @@ function updateCartDisplay() {
 
 // 更新商品数量
 function updateQuantity(productId, change) {
-    // 获取商品信息
-    const productCard = document.querySelector(`[data-product-id="${productId}"]`);
-    const productName = productCard.querySelector('h3').textContent;
-    const productImage = productCard.querySelector('img').src;
-    const quantityDisplay = document.getElementById(`quantity-${productId}`);
-    
-    // 初始化商品在购物车中的数据
-    if (!cart.items[productId]) {
-        cart.items[productId] = {
-            name: productName,
-            price: 13,
-            quantity: 0,
-            image: productImage
-        };
-    }
-    
-    // 更新数量
-    const newQuantity = cart.items[productId].quantity + change;
-    if (newQuantity >= 0) {
-        cart.items[productId].quantity = newQuantity;
-        quantityDisplay.textContent = newQuantity;
-        updateCartDisplay();
+    try {
+        // 获取商品信息
+        const productCard = document.querySelector(`[data-product-id="${productId}"]`);
+        if (!productCard) {
+            console.error(`未找到ID为${productId}的产品卡片`);
+            return;
+        }
+        
+        const productName = productCard.querySelector('h3').textContent;
+        const productImage = productCard.querySelector('img').src;
+        const quantityDisplay = document.getElementById(`quantity-${productId}`);
+        
+        // 初始化商品在购物车中的数据
+        if (!cart.items[productId]) {
+            cart.items[productId] = {
+                name: productName,
+                price: 13,
+                quantity: 0,
+                image: productImage
+            };
+        }
+        
+        // 更新数量
+        const newQuantity = cart.items[productId].quantity + change;
+        if (newQuantity >= 0) {
+            cart.items[productId].quantity = newQuantity;
+            if (quantityDisplay) {
+                quantityDisplay.textContent = newQuantity;
+            }
+            
+            // 确保更新购物车显示
+            updateCartDisplay();
+            
+            // 确保购物车图标上的数字更新
+            const cartCount = document.querySelector('.cart-count');
+            if (cartCount) {
+                let totalQuantity = 0;
+                for (let id in cart.items) {
+                    totalQuantity += cart.items[id].quantity;
+                }
+                cartCount.textContent = totalQuantity;
+            }
+        }
+    } catch (error) {
+        console.error('更新商品数量时出错:', error);
     }
 }
 
@@ -196,7 +219,42 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // 购物车弹窗逻辑
+    const cartBtn = document.getElementById('cartBtn');
+    const cartModal = document.getElementById('cartModal');
+    const closeCart = document.querySelector('.close-cart');
     
+    // 确保元素存在再添加事件监听
+    if (cartBtn && cartModal) {
+        cartBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('购物车按钮被点击');
+            cartModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        });
+    } else {
+        console.error('购物车按钮或模态框元素未找到', { cartBtn, cartModal });
+    }
+    
+    if (closeCart) {
+        closeCart.addEventListener('click', function() {
+            cartModal.style.display = 'none';
+            document.body.style.overflow = '';
+        });
+    }
+    
+    // 点击模态框外部关闭
+    window.addEventListener('click', function(e) {
+        if (e.target === cartModal) {
+            cartModal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // 初始化购物车显示
+    updateCartDisplay();
+
     // 图片加载优化
     const images = document.querySelectorAll('img');
     
@@ -262,10 +320,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // 登录注册功能
     const loginBtn = document.getElementById('loginBtn');
     const registerBtn = document.getElementById('registerBtn');
-    const cartBtn = document.getElementById('cartBtn');
+    // 注意：cartBtn已在上面定义过，这里不需要重复定义
     const loginModal = document.getElementById('loginModal');
     const registerModal = document.getElementById('registerModal');
-    const cartModal = document.getElementById('cartModal');
+    // 注意：cartModal已在上面定义过，这里不需要重复定义
     const closeButtons = document.querySelectorAll('.close-auth, .close-cart');
     
     // 打开登录模态框
